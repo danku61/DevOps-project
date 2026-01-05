@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ exercise.name }}</h1>
+
+  <p class="muted">
+    Личный рекорд (макс. вес): <b>{{ "%.1f"|format(pr) if pr else "—" }}</b>
+  </p>
+
+  <section class="card">
+    <h2>Добавить подход</h2>
+    <form method="post" action="{{ url_for('main.add_set', exercise_id=exercise.id) }}" class="grid">
+      <label>
+        Вес (кг)
+        <input name="weight" type="number" step="0.5" min="0.5" required />
+      </label>
+
+      <label>
+        Повторы
+        <input name="reps" type="number" step="1" min="1" required />
+      </label>
+
+      <label>
+        Дата/время (необязательно)
+        <input name="performed_at" type="datetime-local" />
+      </label>
+
+      <button type="submit">Добавить</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>История</h2>
+    {% if sets %}
+      <ul class="list">
+        {% for s in sets %}
+          <li class="list-item">
+            {{ s.performed_at.strftime("%Y-%m-%d %H:%M") }} — {{ "%.1f"|format(s.weight) }} кг × {{ s.reps }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Подходов пока нет.</p>
+    {% endif %}
+  </section>
+
+  <p><a href="{{ url_for('main.index') }}">← назад</a></p>
+{% endblock %}

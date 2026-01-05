@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Упражнения</h1>
+
+  <section class="card">
+    <h2>Добавить упражнение</h2>
+    <form method="post" action="{{ url_for('main.create_exercise') }}" class="row">
+      <input name="name" placeholder="Например: Жим лёжа" required />
+      <button type="submit">Добавить</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Список</h2>
+    {% if exercises %}
+      <ul class="list">
+        {% for ex in exercises %}
+          <li class="list-item">
+            <a href="{{ url_for('main.exercise_page', exercise_id=ex.id) }}">{{ ex.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Пока пусто. Добавь первое упражнение.</p>
+    {% endif %}
+  </section>
+{% endblock %}
