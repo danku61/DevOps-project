@@ -1,0 +1,3 @@
+TIME: current_date_time  MESSAGE:ADD_SET invalid_number ex_id=1 weight='abc' reps='5' err=ValueError:could not convert string to float: 'abc'TIME: current_date_time  MESSAGE:ADD_SET success ex_id=1 weight=1.0 reps=2 performed_at=auto_nowTIME: current_date_time  MESSAGE:ADD_SET invalid_number ex_id=1 weight='1231' reps='' err=ValueError:invalid literal for int() with base 10: ''TIME: 2026-01-08 19:14:07 MESSAGE:CREATE_EXERCISE success name='1233' id=4
+TIME: 2026-01-08 19:14:15 MESSAGE:ADD_SET invalid_number ex_id=4 weight='124444' reps='' err=ValueError:invalid literal for int() with base 10: ''
+TIME: 2026-01-08 19:18:29 MESSAGE:ошибка типов данных повтора или подхода

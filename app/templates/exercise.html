@@ -8,7 +8,7 @@
 
   <section class="card">
     <h2>Добавить подход</h2>
-    <form method="post" action="{{ url_for('main.add_set', exercise_id=exercise.id) }}" class="grid">
+    <form method="post" action="{{ url_for('main.add_set', exercise_id=exercise.id) }}" novalidate >
       <label>
         Вес (кг)
         <input name="weight" type="number" step="0.5" min="0.5" required />

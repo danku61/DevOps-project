@@ -1,4 +1,5 @@
 .venv
 .logs.txt
+<<<<<<< HEAD
 __pychace__/
 *.pyc
