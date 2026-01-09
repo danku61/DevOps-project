@@ -1,5 +1,11 @@
-.venv
-.logs.txt
-<<<<<<< HEAD
-__pychace__/
+logs.txt
+*.log
+
+.venv/
+venv/
+
+__pycache__/
 *.pyc
+
+.pytest_cache/
+
