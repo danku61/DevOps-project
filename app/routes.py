@@ -36,7 +36,7 @@ def create_exercise():
     except IntegrityError:
         db.session.rollback()
         flash("Такое упражнение уже существует.", "error")
-        log_event(f"упражнение уже существует")
+        log_event("упражнение уже существует")
         return redirect(url_for("main.index"))
     except Exception as e:
         db.session.rollback()
@@ -45,7 +45,7 @@ def create_exercise():
         return redirect(url_for("main.index"))
 
     flash("Упражнение добавлено.", "success")
-    log_event(f"Упражнение добавлено")
+    log_event("Упражнение добавлено")
     return redirect(url_for("main.index"))
 
 
@@ -78,14 +78,12 @@ def add_set(exercise_id: int):
     raw_r = (request.form.get("reps") or "").strip()
     raw_dt = (request.form.get("performed_at") or "").strip()  # если поля нет — будет ""
 
-    # (не обязательно, но удобно для отладки)
-    # log_event(f"ADD_SET handler reached ex_id={exercise_id} weight={raw_w!r} reps={raw_r!r} performed_at={raw_dt!r}")
 
     # Парсинг чисел
     try:
         weight = float(raw_w)
         reps = int(raw_r)
-    except ValueError as e:
+    except ValueError:
         flash("Вес и повторы должны быть числами.", "error")
         log_event("ошибка типов данных повтора или подхода" )
         return redirect(url_for("main.exercise_page", exercise_id=exercise_id))
