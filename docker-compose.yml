@@ -1,0 +1,52 @@
+services:
+  gymlog:
+    image: danku61/gymlog:latest
+    container_name: gymlog
+    ports:
+      - "8000:8000"
+    volumes:
+      - gymlog_instance:/app/instance
+      - /home/devops_proj/logs.txt:/app/logs.txt
+    restart: unless-stopped
+    depends_on:
+      - loki
+
+  loki:
+    image: grafana/loki:2.9.4
+    container_name: loki
+    command: -config.file=/etc/loki/config.yml
+    ports:
+      - "3101:3100"
+    volumes:
+      - /usr/local/bin/loki-local-config.yaml:/etc/loki/config.yml:ro
+      - loki_data:/loki
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:2.9.4
+    container_name: promtail
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - /etc/promtail-config.yaml:/etc/promtail/config.yml:ro
+      - /home/devops_proj/logs.txt:/home/devops_proj/logs.txt:ro
+      - promtail_positions:/var/lib/promtail
+    depends_on:
+      - loki
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:10.4.3
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    restart: unless-stopped
+    depends_on:
+      - loki
+
+volumes:
+  gymlog_instance:
+  grafana_data:
+  loki_data:
+  promtail_positions:
