@@ -19,7 +19,7 @@ def index():
     exercises = Exercise.query.order_by(Exercise.name.asc()).all()
     return render_template("index.html", exercises=exercises)
 
-
+#PRIVET LOHI
 @bp.post("/exercises")
 def create_exercise():
     name = (request.form.get("name") or "").strip()
@@ -48,7 +48,7 @@ def create_exercise():
     log_event("Упражнение добавлено")
     return redirect(url_for("main.index"))
 
-
+#skadkdaksdk
 @bp.get("/exercise/<int:exercise_id>")
 def exercise_page(exercise_id: int):
     exercise = Exercise.query.get_or_404(exercise_id)
